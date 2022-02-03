@@ -1,0 +1,23 @@
+---
+# Install k3s on master
+- hosts: k3s-master
+  gather_facts: yes
+  become: yes
+  become_user: root
+  roles:
+    - role: k3s/master
+
+# Install k3s on nodes & join master
+- hosts: k3s-nodes
+  become: yes
+  become_user: root
+  roles:
+    - role: k3s/node
+
+# Install helm on master
+- hosts: k3s-master
+  become: yes
+  become_user: root
+  roles:
+    - role: helm
+    - role: deploy

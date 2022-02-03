@@ -1,0 +1,3 @@
+---
+k3s_server_location: /var/lib/rancher/k3s
+master_ip: "{{ hostvars[groups['k3s-master'][0]]['ansible_host'] | default(groups['k3s-master'][0]) }}"

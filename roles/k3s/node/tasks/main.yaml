@@ -1,0 +1,4 @@
+- name: Download & install k3s
+  ansible.builtin.shell:
+    cmd: curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="agent" K3S_URL=https://{{ master_ip }}:6443 K3S_TOKEN={{ hostvars[groups['k3s-master'][0]]['token'] }} sh -
+

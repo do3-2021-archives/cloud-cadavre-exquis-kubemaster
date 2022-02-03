@@ -1,0 +1,31 @@
+- name: Download & install k3s
+  ansible.builtin.shell:
+    cmd: curl https://get.k3s.io | INSTALL_K3S_EXEC="server" K3S_CLUSTER_INIT="true" bash
+
+- name: Wait for node-token
+  wait_for:
+    path: "{{ k3s_server_location }}/server/node-token"
+
+- name: Read node-token from master
+  slurp:
+    path: "{{ k3s_server_location }}/server/node-token"
+  register: node_token
+
+- name: Store Master node-token
+  set_fact:
+    token: "{{ node_token.content | b64decode | regex_replace('\n', '') }}"
+
+- name: Replace https://localhost:6443 by https://master-ip:6443
+  command: >-
+    k3s kubectl config set-cluster default
+      --server=https://{{ master_ip }}:6443
+  changed_when: true
+
+- name: Creates .kube folder
+  file:
+    path: /root/.kube
+    state: directory
+
+- name: Copy config file to .kube
+  ansible.builtin.shell:
+    cmd: cp /etc/rancher/k3s/k3s.yaml /root/.kube/config

@@ -1,0 +1,14 @@
+- name: Install git
+  apt:
+    name: git
+    state: present
+
+- name: Clone a repo with separate git directory
+  ansible.builtin.git:
+    repo: "{{ cadavre_exquis_git_url }}"
+    dest: "{{ cadavre_exquis_location }}"
+
+- name: Install cadavre exquis chart
+  ansible.builtin.shell:
+    cmd: helm install cloud-cadavre-exquis ./helm/
+    chdir: "{{ cadavre_exquis_location }}"
