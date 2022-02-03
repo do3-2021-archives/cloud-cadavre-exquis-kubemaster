@@ -10,8 +10,8 @@ This repository using the code from: [fteychene/cloud-cadavre-exquis](https://gi
 ### Allocating machines
 You first need to allocate machines on OVH public cloud :
 To do so, connect to your user page, then :
-- Naviguate to Public Cloud 
-- Navigaute to Instances
+- Navigate to Public Cloud 
+- Navigate to Instances
 - Click on Create an instance
 - Configure your server. We recommand going for at least B2-7, which has the minimal recommended specs for using the app.
 - Create at least 2 instances, we recommend using 4.
