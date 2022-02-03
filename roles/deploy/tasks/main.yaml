@@ -10,5 +10,5 @@
 
 - name: Install cadavre exquis chart
   ansible.builtin.shell:
-    cmd: helm install cloud-cadavre-exquis ./helm/
+    cmd: helm install cloud-cadavre-exquis ./helm/ --set dispatcher.replica=3 --set dispatcher.domain="cadavre.simonlucido.com" --set subject.replica=3 --set verb.replica=3 --set adjective.replica=3 
     chdir: "{{ cadavre_exquis_location }}"
